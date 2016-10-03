@@ -1,6 +1,5 @@
 body {
 	margin: 0 auto;
-	background-image: url("../images/background.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -62,3 +61,55 @@ a {
 	color: #fff;
 }
 
+.codrops-top{
+	width: 1200px;
+	height: 100px;
+	margin: auto;
+	line-height: 24px;
+	text-transform: uppercase;
+	z-index: 9999;
+	border-radius: 4px;
+	background-color: #FCFCFC;
+	box-shadow: 0px 0px 10px #888888;
+}
+
+.top-bar {
+	height: 60px;
+	margin: 20px auto;
+	margin-left: 50px;
+	background-color: #FCFCFC;
+	font-size: 25px;
+	border: none;
+	color: #D1D0CE;
+	outline: none;
+	cursor: pointer;
+}
+
+.top-bar-right {
+	height: 60px;
+	margin: 20px auto;
+	margin-right: 50px;
+	background-color: #FCFCFC;
+	font-size: 25px;
+	border: none;
+	color: #D1D0CE;
+	outline: none;
+	cursor: pointer;
+	float: right;
+}
+
+.introduction {
+	width: 1200px;
+	height: 200px;
+	margin: 100px auto;
+	border-radius: 10px;
+	background-color: #EFEFEF;
+}
+
+.introduction h1 {
+	margin: 20px;
+}
+.introduction p {
+	margin: 20px;
+	font-size: 20px;
+}

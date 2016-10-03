@@ -6,6 +6,10 @@
  */
 
 module.exports = {
-	
+	login: function(req, res) {
+		if (req.method == "GET") {
+			return res.view('login');
+		}
+	}
 };
 
