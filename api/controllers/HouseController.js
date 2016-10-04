@@ -6,6 +6,10 @@
  */
 
 module.exports = {
-	
+	search: function(req, res) {
+		if (req.method == "GET") {
+			return res.view('search');
+		}
+	},
 };
 

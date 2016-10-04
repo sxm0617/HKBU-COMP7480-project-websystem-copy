@@ -1,23 +1,33 @@
 body {
 	margin: 0 auto;
+	background-image: url("/images/background.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 }
 
-.container {
-	width: 500px;
-	height: 400px;
+.login {
+	height: 350px;
 	text-align: center;
 	background-color: rgba(52, 73, 94, 0.7);
 	border-radius: 4px;
-	margin: 200px auto;
+	margin: 100px auto;
 }
 
-.container img {
+.login img {
 	width: 100px;
 	height: 100px;
 	margin-top: -40px;
 	margin-bottom: 20px;
+}
+
+.login p {
+	color: #fff;
+}
+
+.login a {
+	font-size: 25px;
+	text-decoration: none;
+	color: #fff;
 }
 
 input[type="text"],input[type="password"] {
@@ -35,13 +45,16 @@ input[type="text"],input[type="password"] {
 	position: absolute;
 	font-family: "FontAwesome";
 	font-size: 30px;
-	margin-top: 5px;
+	margin-top: -5px;
 	color: #9B59B6;
 	padding-left: 5px;
 	padding-top: 5px;
 }
 
 .form-input:nth-child(2)::before {
+	content: "\f023";
+}
+.form-input:nth-child(3)::before {
 	content: "\f023";
 }
 
@@ -57,16 +70,9 @@ input[type="text"],input[type="password"] {
 	margin-bottom: 20px;
 }
 
-a {
-	color: #fff;
-}
-
 .codrops-top{
-	width: 1200px;
-	height: 100px;
 	margin: auto;
 	line-height: 24px;
-	text-transform: uppercase;
 	z-index: 9999;
 	border-radius: 4px;
 	background-color: #FCFCFC;
@@ -98,10 +104,18 @@ a {
 	float: right;
 }
 
+.top-bar a {
+	color: #D1D0CE;
+	text-decoration: none;
+}
+
+.top-bar-right a {
+	color: #D1D0CE;
+	text-decoration: none;
+}
+
 .introduction {
-	width: 1200px;
-	height: 200px;
-	margin: 100px auto;
+	margin: 50px auto;
 	border-radius: 10px;
 	background-color: #EFEFEF;
 }
@@ -109,7 +123,38 @@ a {
 .introduction h1 {
 	margin: 20px;
 }
+
 .introduction p {
+	height: 50px;
 	margin: 20px;
 	font-size: 20px;
+}
+
+.home {
+	margin: 0 auto;
+}
+
+.register {
+	height: 450px;
+	text-align: center;
+	background-color: rgba(52, 73, 94, 0.7);
+	border-radius: 4px;
+	margin: 100px auto;
+}
+
+.register img {
+	width: 100px;
+	height: 100px;
+	margin-top: -40px;
+	margin-bottom: 20px;
+}
+
+.register p {
+	color: #fff;
+}
+
+.register a {
+	font-size: 25px;
+	text-decoration: none;
+	color: #fff;
 }

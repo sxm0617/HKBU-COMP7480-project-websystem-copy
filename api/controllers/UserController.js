@@ -10,6 +10,12 @@ module.exports = {
 		if (req.method == "GET") {
 			return res.view('login');
 		}
+	},
+
+	register: function(req, res) {
+		if (req.method == "GET") {
+			return res.view('register');
+		}
 	}
 };
 
