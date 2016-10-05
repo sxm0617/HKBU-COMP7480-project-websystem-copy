@@ -12,12 +12,12 @@
 <div class="col-md-offset-3 col-lg-offset-4 col-md-6 col-lg-4">
 	<div class="login">
 		<img src="/images/house.jpg" />
-		<form>
+		<form action="/user/login" method="post">
 			<div class="form-input">
-				<input type="text" id="userName" placeholder="Account" /><br>
+				<input type="text" id="userName" name="username" placeholder="Account" required /><br>
 			</div>
 			<div class="form-input">
-				<input type="password" id="userPassword" placeholder="Password" /><br>
+				<input type="password" id="userPassword" name="password" placeholder="Password" required /><br>
 			</div>
 			<input type="submit" id="login" class="btn-login" value="Login" />
 			<p>Do not have an account? <a href="/user/register">Register </a>here</p>
