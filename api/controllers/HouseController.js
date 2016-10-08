@@ -11,5 +11,11 @@ module.exports = {
 			return res.view('search');
 		}
 	},
+
+	list: function(req, res) {
+		House.find().exec(function(err, houses) {
+			return res.view('index', {'house': houses});
+		});
+	}
 };
 

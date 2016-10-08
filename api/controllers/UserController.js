@@ -27,7 +27,26 @@ module.exports = {
 	register: function(req, res) {
 		if (req.method == "GET") {
 			return res.view('register');
+		} else {
+			User.findOne({username: req.body.username})
+				.exec(function(err, user) {
+					if (user != null) {
+						return res.send("The username has existed");
+					} else {
+						User.create({username: req.body.username, password: req.body.password})
+							.exec(function(err, user) {
+								return res.send("successful");			
+							});
+					}
+			
+				});
 		}
+	},
+
+	logout: function(req, res) {
+		req.session.username = "undefined";
+		return res.redirect('/');
 	}
+
 };
 

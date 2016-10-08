@@ -1,10 +1,3 @@
-body {
-	margin: 0 auto;
-	background-image: url("/images/background.jpg");
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-
 .login {
 	height: 350px;
 	text-align: center;
@@ -18,6 +11,7 @@ body {
 	height: 100px;
 	margin-top: -40px;
 	margin-bottom: 20px;
+	float: center;
 }
 
 .login p {
@@ -97,15 +91,17 @@ input[type="text"],input[type="password"] {
 	margin-right: 50px;
 	background-color: #FCFCFC;
 	font-size: 25px;
+	text-align: center;
+	display: table-cell;
 	border: none;
 	color: #D1D0CE;
-	outline: none;
-	cursor: pointer;
+	outline: none;	
 	float: right;
 }
 
 .top-bar a {
 	color: #D1D0CE;
+	cursor: pointer;
 	text-decoration: none;
 }
 
@@ -113,6 +109,22 @@ input[type="text"],input[type="password"] {
 	color: #D1D0CE;
 	text-decoration: none;
 }
+
+.top-bar-right-user {
+	height: 60px;
+	margin: 20px auto;
+	margin-right: 50px;
+	font-size: 25px;
+	text-align: center;
+	display: table-cell;
+	background-color: #FCFCFC;
+	border: none;
+	color: #D1D0CE;
+	outline: none;	
+	float: right;
+	cursor: auto;
+}
+
 
 .introduction {
 	margin: 50px auto;
@@ -136,10 +148,10 @@ input[type="text"],input[type="password"] {
 
 .register {
 	height: 450px;
-	text-align: center;
 	background-color: rgba(52, 73, 94, 0.7);
 	border-radius: 4px;
 	margin: 100px auto;
+	text-align: center;
 }
 
 .register img {
@@ -147,6 +159,7 @@ input[type="text"],input[type="password"] {
 	height: 100px;
 	margin-top: -40px;
 	margin-bottom: 20px;
+	
 }
 
 .register p {
@@ -157,4 +170,46 @@ input[type="text"],input[type="password"] {
 	font-size: 25px;
 	text-decoration: none;
 	color: #fff;
+}
+
+.wrongpassword {
+	font-size: 15px;
+	color: #F00;
+}
+
+.clearfix {
+	list-style: none;
+	background-color: #FFF;
+}
+
+.list{	
+	padding-bottom: 15px;
+	padding-top: 20px;
+	width: 100%;
+
+}
+
+.list img {
+	margin: 0 auto;
+	height: 200px;
+	width: 400px;
+	border-radius: 10px;
+}
+
+.list a {
+	text-decoration: none;
+}
+
+.title {
+	text-align: left;
+}
+
+.info {
+	text-align: left;
+	font-size: 25px;
+}
+
+.top {
+	padding-left: 40px;
+	vertical-align: top;
 }
