@@ -8,7 +8,14 @@
 module.exports = {
 	search: function(req, res) {
 		if (req.method == "GET") {
-			return res.view('search');
+			User.findOne({username: req.session.username})
+				.exec(function(err, user) {
+					if (user == null) {
+						return res.view('login');
+					} else {
+						return res.view('search');
+					}
+				});			
 		}
 	},
 

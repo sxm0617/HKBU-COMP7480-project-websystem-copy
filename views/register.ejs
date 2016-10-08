@@ -5,7 +5,6 @@
 <div class="col-md-offset-1 col-lg-offset-2 col-md-10 col-lg-8">
 	<div class="codrops-top">
 	    <button id="home" class="top-bar"><a href="/">Home</a></button>
-	    <button id="search" class="top-bar"><a href="/house/search">Search</a></button>
 	</div>
 </div>
 	
@@ -22,7 +21,7 @@
 			<div class="form-input">
 				<input type="password" id="reUserPassword" placeholder="Password Again" required /><label name="inputPassword" class="wrongpassword" value=""></label><br>
 			</div>
-			<button type="button" id="register" class="btn-login" value="Register" onclick="testPassword()">Register</button><br>
+			<button type="button" id="register" class="btn-login" onclick="testPassword()">Register</button><br>
 			<p>Already have an account? <a href="/user/login">Log in </a>here</p>
 		</form>
 	</div>
@@ -38,8 +37,7 @@
 			var label = document.getElementsByName("inputPassword");
 			for (var i = 0; i < label.length; i++) {
 				label[i].innerHTML = "Two passwords do not agree";	
-			}
-			
+			}			
 		} else {
 			var data = new FormData();
 			data.append("username", document.getElementById("userName").value);
@@ -47,8 +45,15 @@
 			var xhr = new XMLHttpRequest();
 			xhr.open("post", "/user/register", true);
 			xhr.onload = function(e) {
-				alert(this.responseText);
-				location.reload(true);
+				if (this.responseText == "successful") {
+					alert(this.responseText);
+					location.replace("/user/login");
+				} else if (this.responseText == "The username has existed"){
+					alert(this.responseText);
+					location.reload(true);
+				} else {
+					location.reload(true);
+				}
 			};
 			xhr.send(data);
 		}
