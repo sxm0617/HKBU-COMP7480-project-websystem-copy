@@ -11,7 +11,7 @@ module.exports = {
 			User.findOne({username: req.session.username})
 				.exec(function(err, user) {
 					if (user == null) {
-						return res.view('login');
+						return res.redirect('/user/login');
 					} else {
 						return res.view('search');
 					}
@@ -23,6 +23,14 @@ module.exports = {
 		House.find().exec(function(err, houses) {
 			return res.view('index', {'house': houses});
 		});
+	},
+
+	view: function(req, res) {
+		House.findOne({id: req.params.id})
+			.exec(function(err, house) {
+				return res.view('view', {'house': house});
+			});
 	}
-};
+
+}; 
 

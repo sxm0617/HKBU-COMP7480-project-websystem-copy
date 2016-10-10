@@ -1,10 +1,93 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" href="/styles/style.css" />
-<link rel="stylesheet" type="text/css" href="/styles/font-awesome.css" />
+<link rel="stylesheet" href="/styles/style.css">
 
 <div class="col-md-offset-1 col-lg-offset-2 col-md-10 col-lg-8">
 	<div class="codrops-top">
-	    <button id="home" class="top-bar"><a href="/">Home</a></button>
-	    <button id="search" class="top-bar"><a href="/house/search">Search</a></button>
-	</div>
+        <button id="home" class="top-bar"><a href="/">Home</a></button>
+        <button id="search" class="top-bar" onclick="chkLogin()"><a href="/house/search">Search</a></button>
+          
+        <button id="logout" class="top-bar-right" onclick="logout()">Logout</button>   
+        <button id="user" class="top-bar-right-user">Hi, <%=req.session.username%></button>
+    </div>
+
+    <div class="introduction">
+        <h1>House Renting System</h1>
+        <p>The system is for you to rent houses online</p>
+    </div>
+
+    <div class="clearfix">
+	    <form action="" method="post">
+	    	<h1>Set your search indexes</h1>
+	    	<table class="info">
+	    		<tr>
+	    			<td style="float: right;">District:</td>
+	    			<td>
+	    				<select>
+	    					<option value="all">All</option>
+	    					<option value="Festival City">Festival City</option>
+	    					<option value="Tin Ma Court">Tin Ma Court</option>
+	    					<option value="City One Shatin">City One Shatin</option>
+	    				</select>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td style="float:right;">Bedrooms:</td>
+	    			<td>
+	    				<select>
+	    					<option value="all">All</option>
+	    					<option value="1">1</option>
+	    					<option value="2">2</option>
+	    					<option value="3">3</option>
+	    					<option value=">3">&gt;3</option>
+	    				</select>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td style="float:right;">Lift:</td>
+	    			<td>
+	    				<select>
+	    					<option value="all">All</option>
+	    					<option value="Yes">Yes</option>
+	    					<option value="No">No</option>
+	    				</select>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td style="float:right;">Guard:</td>
+	    			<td>
+	    				<select>
+	    					<option value="all">All</option>
+	    					<option value="Yes">Yes</option>
+	    					<option value="No">No</option>
+	    				</select>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td style="float:right;">Area(sq feet):</td>
+	    			<td></td>
+	    		</tr>
+	    		<tr>
+	    			<td style="float:right;">Price(HK$/month):</td>
+	    			<td></td>
+	    		</tr>
+	    	</table>
+	    	<button type="button">Search</button>
+	    </form>
+    </div>
+    
 </div>
+
+<script type="text/javascript">
+
+      function logout() {
+        var data = new FormData();
+        data.append("username", "undefined");
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "/user/logout", true);
+        xhr.onload = function(e) {
+            location.replace("/");
+        };
+        xhr.send(data);
+      }
+
+</script>

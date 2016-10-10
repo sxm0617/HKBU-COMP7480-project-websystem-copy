@@ -16,26 +16,25 @@
         <p>The system is for you to rent houses online</p>
     </div>
     <ul class="clearfix">
-    	<% house.forEach(function(house){
-        %>
-        	<li class="list">
-        		<table>
-        			<tr>
-        				<td>
-        					<img src="<%=house.image%>">
-        				</td>
-        				<td class="top">
-			                <h1 class="title"><a href="/house/view/<%=house.id%>"><%=house.title%></a></h1>   
-			                <p class="info">District: <%=house.district%></p>
-			                <p class="info">Area: <%=house.area%> sq feet</p>
-			                <p class="info">Price:<strong>$<%=house.price%>/month</strong></p>
-                		</td>
-        			</tr>
-        		</table>
-        	</li>
-        <%
-        });
-        %>
+        <li class="detail">
+        	<table>
+        		<tr>
+        			<td>
+        				<img src="<%=house.image%>">
+        			</td>
+        			<td class="top">
+		                <h1 class="title"><%=house.title%></a></h1> <br>  
+		                <p class="info">District: <%=house.district%></p>
+		                <p class="info">Area: <%=house.area%> sq feet</p>
+		                <p class="info">Bedrooms: <%=house.bedroom%></p>
+		                <p class="info">Lift: <%=house.lift%></p>
+		                <p class="info">Guard: <%=house.guard%></p>
+		                <p class="info">Price:<strong>$<%=house.price%>/month</strong></p>
+		                <button type="button" onclick="chkLogin()" >Declare interest</button>
+               		</td>
+        		</tr>
+        	</table>
+        </li>
     </ul>
     
 </div>
@@ -59,6 +58,7 @@
       	var currentUser = "<%=req.session.username%>";
       	if (currentUser == "undefined") {
       		alert("Please login first");
+      		location.replace("/user/login");
       		//document.getElementById("search").className="top-bar";
       	} else {
       		//document.getElementById("search").className="active";

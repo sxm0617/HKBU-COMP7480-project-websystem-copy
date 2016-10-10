@@ -213,3 +213,16 @@ input[type="text"],input[type="password"] {
 	padding-left: 40px;
 	vertical-align: top;
 }
+
+.detail {
+	padding-bottom: 15px;
+	padding-top: 20px;
+	width: 100%;
+}
+
+.detail img {
+	margin: 0 auto;
+	height: 400px;
+	width: 600px;
+	border-radius: 10px;
+}
