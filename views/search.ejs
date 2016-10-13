@@ -39,7 +39,7 @@
 	    					<option value="1">1</option>
 	    					<option value="2">2</option>
 	    					<option value="3">3</option>
-	    					<option value=">3">&gt;3</option>
+	    					<option value="4">4</option>
 	    				</select>
 	    			</td>
 	    		</tr>
@@ -97,6 +97,7 @@
 		        });
 		        %>
 		        <%if (current == null) current = 1;%>
+		        <td colspan="2" align="center">
 		        <table width="20%">
 		        	<tr>
 			        	<td align="center"><a href="/house/search?page=1">&lt;&lt;</td>
@@ -127,35 +128,35 @@
         xhr.send(data);
     }
 
-    var areaSlider = document.getElementById("areaSlider");
-    noUiSlider.create(areaSlider, {
-    	start: [0, 2000],
-    	step: 100,
-    	behavior: "drag",
-    	connect: true,
-    	range: {
-    		"min": [0],
-    		"max": [2000]
-    	}
-    });
-    var snapValues = [
-    		document.getElementById("minArea"),
-    		document.getElementById("maxArea")
-    	];
-    snapSlider.noUiSlider.on("update", function(values, handle) {
-    	snapValues[handle].innerHTML = values[handle];
-    });
+    // var areaSlider = document.getElementById("areaSlider");
+    // noUiSlider.create(areaSlider, {
+    // 	start: [0, 2000],
+    // 	step: 100,
+    // 	behavior: "drag",
+    // 	connect: true,
+    // 	range: {
+    // 		"min": [0],
+    // 		"max": [2000]
+    // 	}
+    // });
+    // var snapValues = [
+    // 		document.getElementById("minArea"),
+    // 		document.getElementById("maxArea")
+    // 	];
+    // snapSlider.noUiSlider.on("update", function(values, handle) {
+    // 	snapValues[handle].innerHTML = values[handle];
+    // });
 
-    var priceSlider = document.getElementById("priceSlider");
-    noUiSlider.create(priceSlider, {
-    	start: [0, 30000],
-    	step: 1000,
-    	behavior: "drag",
-    	connect: true,
-    	range: {
-    		"min": [0],
-    		"max": [30000]
-    	}
-    });
+    // var priceSlider = document.getElementById("priceSlider");
+    // noUiSlider.create(priceSlider, {
+    // 	start: [0, 30000],
+    // 	step: 1000,
+    // 	behavior: "drag",
+    // 	connect: true,
+    // 	range: {
+    // 		"min": [0],
+    // 		"max": [30000]
+    // 	}
+    // });
 
 </script>

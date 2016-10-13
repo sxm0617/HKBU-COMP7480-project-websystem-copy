@@ -4,7 +4,7 @@
 <div class="col-md-offset-1 col-lg-offset-2 col-md-10 col-lg-8">
 	<div class="codrops-top">
         <button id="home" class="top-bar"><a href="/">Home</a></button>
-        <button id="search" type="button" class="top-bar" onclick="chkLogin()"><a href="/house/search">Search</a></button>
+        <button id="search" type="button" class="top-bar" onclick="chkLogin()">Search</button>
           
         <button id="login" class="top-bar-right"><a href="/user/login">Login</a></button>  
         <button id="logout" class="top-bar-right" onclick="logout()">Logout</button>   
@@ -59,19 +59,14 @@
       	var currentUser = "<%=req.session.username%>";
       	if (currentUser == "undefined") {
       		alert("Please login first");
+          location.replace("/user/login");
       		//document.getElementById("search").className="top-bar";
       	} else {
+          var xhr = new XMLHttpRequest();
+          xhr.open("post", "/house/search", true);
+          location.replace("/house/search");
       		//document.getElementById("search").className="active";
       	}
-      	var data = new FormData();
-        data.append("username", "<%=req.session.username%>");
-        var xhr = new XMLHttpRequest();
-        xhr.open("post", "/house/search", true);
-        xhr.onload = function(e) {
-          console.log(this.responseText);
-          location.reload();
-        }
-        xhr.send(data);
       }
 
       function logout() {

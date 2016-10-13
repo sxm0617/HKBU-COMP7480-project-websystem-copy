@@ -46,7 +46,7 @@ module.exports.bootstrap = function(cb) {
         "image": "http://static.apple.nextmedia.com/images/apple-photos/640pix/20030903/Article_fin/03bc351p.jpg",
         "area": 550,
         "bedroom": 2,
-        "lift": "No",
+        "lift": "Yes",
         "guard": "No",
         "price": 12000
     };
