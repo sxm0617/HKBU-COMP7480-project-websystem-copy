@@ -23,7 +23,7 @@ module.exports = {
 							console.log(value);
 							if (pages == 0) {
 								pages = 1;
-							}
+							} 
 							return res.view('search', {'house': houses, 'count': pages, 'current': req.query.page});
 					})				 					
 				});			 					
