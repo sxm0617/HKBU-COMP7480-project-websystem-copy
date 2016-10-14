@@ -68,6 +68,27 @@ module.exports = {
 			.exec(function(err, house) {
 				return res.view('view', {'house': house});
 			});
+	},
+
+	admin: function(req, res) {
+		House.find().exec(function(err, houses) {
+			return res.view('admin', {'house': houses});
+		});
+	},
+
+	delete: function(req, res) {
+		House.findOne({id: req.body.id}).exec(function(err, house) {
+			if (house != null) {
+				house.destroy();
+				return res.redirect('house/admin');
+			}
+		});
+	},
+
+	edit: function(req, res) {
+		House.find({id: req.params.id}).exec(function(err, houses) {
+			return res.view('edit', {'house': houses});
+		});
 	}
 
 }; 

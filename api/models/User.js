@@ -7,8 +7,11 @@
 
 module.exports = {
 
-  attributes: {
-
-  }
+  	attributes: {
+  		own: {
+  			collection: 'House',
+  			via: 'ownedBy'
+  		}
+  	}
 };
 

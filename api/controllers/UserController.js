@@ -46,6 +46,14 @@ module.exports = {
 	logout: function(req, res) {
 		req.session.username = "undefined";
 		return res.redirect('/');
+	},
+
+	own: function(req, res) {
+			console.log(req.session.username);
+			User.findOne({username: req.session.username}).populate("own").exec(function(err, model) {
+				console.log(model.own.id);
+				return res.json(model);
+		});
 	}
 
 };

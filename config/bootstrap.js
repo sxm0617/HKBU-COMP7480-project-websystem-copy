@@ -14,15 +14,30 @@ module.exports.bootstrap = function(cb) {
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   
-  	var user = {"username": "admin", "password":"123456", "id":1};
-    User.create(user).exec(function (err, model)  {
-        model.save();
+  	var user = {"username": "admin", "password": "123456", "id": 1};
+    User.create(user).exec(function (err, user)  {
+        user.save();
     });
     
-    user = {"username": "boss", "password":"123456", "id":2};
-    User.create(user).exec(function (err, model)  {
-        model.save();
+    user = {"username": "GreedyGirl", "password": "944823423", "id": 2};
+    User.create(user).exec(function (err, user)  {
+        user.own.add(1);
+        user.own.add(3);
+        user.save();
     });
+
+    user = {"username": "sxm0617", "password": "617618", "id": 3};
+    User.create(user).exec(function (err, user)  {
+        user.own.add(2);
+        user.save();
+    });
+
+    user = {"username": "COMP7480", "password": "mtchoy", "id": 4};
+    User.create(user).exec(function (err, user)  {
+        user.own.add(4);
+        user.save();
+    });
+
 
     var houseInfo = {
         "id": 1,
@@ -35,8 +50,9 @@ module.exports.bootstrap = function(cb) {
         "guard": "Yes",
         "price": 18000
     };
-    House.create(houseInfo).exec(function (err, model) {
-        model.save();
+    House.create(houseInfo).exec(function (err, house) {
+        house.ownedBy.add(2);
+        house.save();
     });
 
     houseInfo = {
@@ -50,8 +66,9 @@ module.exports.bootstrap = function(cb) {
         "guard": "No",
         "price": 12000
     };
-    House.create(houseInfo).exec(function (err, model) {
-        model.save();
+    House.create(houseInfo).exec(function (err, house) {
+        house.ownedBy.add(3);
+        house.save();
     });
 
     houseInfo = {
@@ -65,8 +82,9 @@ module.exports.bootstrap = function(cb) {
         "guard": "Yes",
         "price": 25000
     };
-    House.create(houseInfo).exec(function (err, model) {
-        model.save();
+    House.create(houseInfo).exec(function (err, house) {
+        house.ownedBy.add(2);
+        house.save();
     });
 
     houseInfo = {
@@ -80,8 +98,9 @@ module.exports.bootstrap = function(cb) {
         "guard": "No",
         "price": 15000
     };
-    House.create(houseInfo).exec(function (err, model) {
-        model.save();
+    House.create(houseInfo).exec(function (err, house) {
+        house.ownedBy.add(4);
+        house.save();
     });
 
   cb();

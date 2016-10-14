@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+<link rel="stylesheet" href="/styles/style.css">
+
+<div class="col-md-offset-1 col-lg-offset-2 col-md-10 col-lg-8">
+	<div class="codrops-top">
+        <button id="home" class="top-bar"><a href="/">Home</a></button>
+        <button id="search" type="button" class="top-bar" onclick="chkLogin()">Search</button>
+
+        <button id="admin" type="button" class="top-bar">Admin</button>
+          
+        <button id="logout" class="top-bar-right" onclick="logout()">Logout</button>   
+        <button id="user" class="top-bar-right-user">Hi, Admin</button>
+    </div>
+    <br><br><br>
+    <table width="100%" class="clearfix">
+        <% house.forEach(function(house){
+        %>
+        <tr style="border-top:1px solid #000000; font-size: 20px;" >
+            <td><%=house.title%></td>
+            <td><%=house.district%></td>
+            <td><a href="">Interest User</a></td>
+            <td><a href="/house/edit/<%=house.id%>" onclick="editHouse('<%=house.id%>')">Edit</a></td>
+            <td><button type="button" onclick="deleteHouse('<%=house.id%>')">Delete</a></td>
+        </tr>
+        <%
+        });
+        %>
+    </table>
+    
+</div>
+
+<script type="text/javascript">
+
+    function chkLogin() {
+        var currentUser = "<%=req.session.username%>";
+        if (currentUser == "undefined") {
+            alert("Please login first");
+          location.replace("/user/login");
+            //document.getElementById("search").className="top-bar";
+        } else {
+          var xhr = new XMLHttpRequest();
+          xhr.open("post", "/house/search", true);
+          location.replace("/house/search");
+            //document.getElementById("search").className="active";
+        }
+    }
+
+    function logout() {
+        var data = new FormData();
+        data.append("username", "undefined");
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "/user/logout", true);
+        xhr.onload = function(e) {
+            location.reload();
+        };
+        xhr.send(data);
+    }
+
+    function editHouse(id) {
+        var data = new FormData();
+        data.append("id", id);
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "/house/edit", true);
+        xhr.onload = function(e) {
+            location.reload();
+        };
+        xhr.send(data);
+    }
+
+    function deleteHouse(id) {
+        var data = new FormData();
+        data.append("id", id);
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "/house/delete", true);
+        xhr.onload = function(e) {
+            location.reload();
+        };
+        xhr.send(data);
+    }
+
+</script>
