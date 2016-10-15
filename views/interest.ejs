@@ -13,7 +13,7 @@
           
         <button id="login" class="top-bar-right"><a href="/user/login">Login</a></button>  
         <button id="logout" class="top-bar-right" onclick="logout()">Logout</button>   
-        <button id="user" class="top-bar-right-user"></button>>
+        <button id="user" class="top-bar-right-user"></button>
     </div>
     <br><br><br>
 	
@@ -21,11 +21,11 @@
         <% house.forEach(function(house){
         %>
         <tr style="border-top:1px solid #000000; font-size: 20px;" >
-            <td><%=house.title%></td>
+            <td><a href="/house/view/<%=house.id%>"><%=house.title%></td>
             <td><%=house.district%></td>
-            <td><a href="/house/interest/<%=house.id%>">Interest User</a></td>
-            <td><a href="/house/edit/<%=house.id%>" onclick="editHouse('<%=house.id%>')">Edit</a></td>
-            <td><button type="button" onclick="deleteHouse('<%=house.id%>')">Delete</button></td>
+            <td><%=house.area%>sq feet</td>
+            <td>$<%=house.price%>/month</td>
+            <td style="text-align: center"><a href="/house/uninterest" style="text-decoration: none">Uninterest</a>
         </tr>
         <%
         });
@@ -39,20 +39,20 @@
     window.onload = function() {
         if ("<%=req.session.username%>" == "undefined") {
             document.getElementById("admin").setAttribute("style", "display:none");
-          	document.getElementById("userhouse").setAttribute("style", "display:none");
+            document.getElementById("userhouse").setAttribute("style", "display:none");
             document.getElementById("addhouse").setAttribute("style", "display:none");
             document.getElementById("interest").setAttribute("style", "display:none");            
             document.getElementById("login").setAttribute("style", "display:inline");
             document.getElementById("logout").setAttribute("style", "display:none");
-            document.getElementById("user").setAttribute("style", "display:none");         	     
+            document.getElementById("user").setAttribute("style", "display:none");                 
         } else {
-           	document.getElementById("user").innerHTML = "Hi, <%=req.session.username%>";
+            document.getElementById("user").innerHTML = "Hi, <%=req.session.username%>";
             document.getElementById("login").setAttribute("style", "display:none");
             document.getElementById("logout").setAttribute("style", "display:inline");
-           	document.getElementById("user").setAttribute("style", "display:inline");        	
+            document.getElementById("user").setAttribute("style", "display:inline");            
             document.getElementById("userhouse").setAttribute("style", "display:inline");
             document.getElementById("addhouse").setAttribute("style", "display:inline");
-            document.getElementById("interest").setAttribute("style", "display:inline");    
+            document.getElementById("interest").setAttribute("style", "display:inline");                  
         }
     }
 

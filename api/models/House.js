@@ -11,6 +11,11 @@ module.exports = {
   		ownedBy: {
   			collection: 'User',
   			via: 'own'
+  		},
+
+  		interestedBy: {
+  			collection: 'User',
+  			via: 'interest'
   		}
   	}
 };

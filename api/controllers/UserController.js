@@ -19,6 +19,8 @@ module.exports = {
 						return res.send("Wrong password");
 					}
 					req.session.username = req.body.username;
+					console.log(user.id);
+					req.session.userId = user.id;
 					return res.redirect('/');
 				});
 		}
@@ -37,8 +39,7 @@ module.exports = {
 							.exec(function(err, user) {
 								return res.send("successful");			
 							});
-					}
-			
+					}			
 				});
 		}
 	},
@@ -49,10 +50,16 @@ module.exports = {
 	},
 
 	own: function(req, res) {
-			console.log(req.session.username);
-			User.findOne({username: req.session.username}).populate("own").exec(function(err, model) {
-				console.log(model.own.id);
-				return res.json(model);
+		User.findOne({username: req.session.username}).populate("own").exec(function(err, model) {
+			return res.view('own', {'house': model.own});
+		});
+	},
+
+	interest: function(req, res) {
+		User.findOne({username: req.session.username}).exec(function(err, user) {
+			user.interest.add(req.params.id);
+			user.save();
+			return res.json(user);
 		});
 	}
 

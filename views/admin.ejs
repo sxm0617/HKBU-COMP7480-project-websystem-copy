@@ -6,10 +6,11 @@
         <button id="home" class="top-bar"><a href="/">Home</a></button>
         <button id="search" type="button" class="top-bar" onclick="chkLogin()">Search</button>
 
-        <button id="admin" type="button" class="top-bar">Admin</button>
+        <button id="admin" type="button" class="top-bar"><a href="/house/admin">Admin</a></button>
           
+        <button id="login" class="top-bar-right"><a href="/user/login">Login</a></button>  
         <button id="logout" class="top-bar-right" onclick="logout()">Logout</button>   
-        <button id="user" class="top-bar-right-user">Hi, Admin</button>
+        <button id="user" class="top-bar-right-user"></button>
     </div>
     <br><br><br>
     <table width="100%" class="clearfix">
@@ -18,9 +19,9 @@
         <tr style="border-top:1px solid #000000; font-size: 20px;" >
             <td><%=house.title%></td>
             <td><%=house.district%></td>
-            <td><a href="">Interest User</a></td>
+            <td><a href="/house/interest/<%=house.id%>">Interest User</a></td>
             <td><a href="/house/edit/<%=house.id%>" onclick="editHouse('<%=house.id%>')">Edit</a></td>
-            <td><button type="button" onclick="deleteHouse('<%=house.id%>')">Delete</a></td>
+            <td><button type="button" onclick="deleteHouse('<%=house.id%>')">Delete</button></td>
         </tr>
         <%
         });
@@ -51,9 +52,9 @@
         var xhr = new XMLHttpRequest();
         xhr.open("post", "/user/logout", true);
         xhr.onload = function(e) {
-            location.reload();
+            location.replace("/");
         };
-        xhr.send(data);
+        xhr.send(data);        
     }
 
     function editHouse(id) {

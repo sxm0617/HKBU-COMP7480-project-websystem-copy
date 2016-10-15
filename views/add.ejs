@@ -2,11 +2,9 @@
 <link rel="stylesheet" href="/styles/style.css">
 
 <div class="col-md-offset-1 col-lg-offset-2 col-md-10 col-lg-8">
-	<div class="codrops-top">
+	  <div class="codrops-top">
         <button id="home" class="top-bar"><a href="/">Home</a></button>
         <button id="search" type="button" class="top-bar" onclick="chkLogin()">Search</button>
-
-        <button id="admin" type="button" class="top-bar"><a href="/house/admin">Admin</a></button>
 
         <button id="userhouse" type="button" class="top-bar"><a href="/user/own">My House</a></button>
         <button id="addhouse" type="button" class="top-bar"><a href="/house/add">Add New</a></button>
@@ -16,19 +14,16 @@
         <button id="logout" class="top-bar-right" onclick="logout()">Logout</button>   
         <button id="user" class="top-bar-right-user"></button>
     </div>
-    </div>
-    <br><br><br>
 
-    <form action="/house/update" method="post">    
+    <form action="/house/confirmAdd" method="post">    
         <table class="edit" style="width: 100%">
-            <input name="id" value="<%=house.id%>" hidden></div>
             <tr>
                 <td style="width: 20%; text-align: right; font-size: 20px">Property Description:</td>
-                <td style="width: 80%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="title" value="<%=house.title%>"></td>
+                <td style="width: 80%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="title"></td>
             </tr>
             <tr>
                 <td style="width: 20%; text-align: right; font-size: 20px">Image URL:</td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="image" value="<%=house.image%>"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="image"></td>
             </tr>
             <tr>
                 <td style="width: 20%; text-align: right; font-size: 20px">District:</td>
@@ -42,11 +37,11 @@
             </tr>
             <tr>
                 <td style="width: 20%; text-align: right; font-size: 20px">Bedrooms:</td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" name="bedroom" min="1" max="4" value="<%=house.bedroom%>"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" name="bedroom" min="1" max="4" placeholder="no more than 4"></td>
             </tr>
             <tr>
                 <td style="width: 20%; text-align: right; font-size: 20px">Area:</td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" name="area" min="0" max="2000" value="<%=house.area%>"></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" name="area" min="0" max="2000" placeholder="no more than 2000"></td>
             </tr>
             <tr>
                 <td style="width: 20%; text-align: right; font-size: 20px">Lift:</td>
@@ -68,61 +63,48 @@
             </tr>
             <tr>
                 <td style="width: 20%; text-align: right; font-size: 20px">Price:</td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" name="price" min="0" max="30000" step="100" value="<%=house.price%>"></td>
-            </tr>
-            <tr>
-                <td style="width: 20%; text-align: right; font-size: 20px">Highlighted:</td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" name="price" min="0" max="30000" step="100" placeholder="no more than 30000"></td>
             </tr>
         </table>
-        <button>Update</button>
+        <button>Add</button>
     </form>
     
 </div>
 
 <script type="text/javascript">
-
+ 
     window.onload = function() {
         if ("<%=req.session.username%>" == "undefined") {
-            document.getElementById("admin").setAttribute("style", "display:none");
-            document.getElementById("userhouse").setAttribute("style", "display:none");
+          	document.getElementById("userhouse").setAttribute("style", "display:none");
             document.getElementById("addhouse").setAttribute("style", "display:none");
             document.getElementById("interest").setAttribute("style", "display:none");            
             document.getElementById("login").setAttribute("style", "display:inline");
             document.getElementById("logout").setAttribute("style", "display:none");
             document.getElementById("user").setAttribute("style", "display:none");
-                 
+          	     
         } else {
-            document.getElementById("user").innerHTML = "Hi, <%=req.session.username%>";
+           	document.getElementById("user").innerHTML = "Hi, <%=req.session.username%>";
             document.getElementById("login").setAttribute("style", "display:none");
             document.getElementById("logout").setAttribute("style", "display:inline");
-            document.getElementById("user").setAttribute("style", "display:inline");            
-            if ("<%=req.session.username%>" == "admin") {
-                document.getElementById("admin").setAttribute("style", "display:inline");
-                document.getElementById("userhouse").setAttribute("style", "display:none");
-                document.getElementById("addhouse").setAttribute("style", "display:none");
-                document.getElementById("interest").setAttribute("style", "display:none"); 
-            }  else {
-                document.getElementById("admin").setAttribute("style", "display:none");
-                document.getElementById("userhouse").setAttribute("style", "display:inline");
-                document.getElementById("addhouse").setAttribute("style", "display:inline");
-                document.getElementById("interest").setAttribute("style", "display:inline"); 
-            }     
+           	document.getElementById("user").setAttribute("style", "display:inline");        	
+            document.getElementById("userhouse").setAttribute("style", "display:inline");
+            document.getElementById("addhouse").setAttribute("style", "display:inline");
+            document.getElementById("interest").setAttribute("style", "display:inline");     
         }
     }
 
     function chkLogin() {
-        var currentUser = "<%=req.session.username%>";
-        if (currentUser == "undefined") {
-            alert("Please login first");
+      	var currentUser = "<%=req.session.username%>";
+      	if (currentUser == "undefined") {
+      		alert("Please login first");
           location.replace("/user/login");
-            //document.getElementById("search").className="top-bar";
-        } else {
+      		//document.getElementById("search").className="top-bar";
+      	} else {
           var xhr = new XMLHttpRequest();
           xhr.open("post", "/house/search", true);
           location.replace("/house/search");
-            //document.getElementById("search").className="active";
-        }
+      		//document.getElementById("search").className="active";
+      	}
     }
 
     function logout() {
@@ -131,11 +113,9 @@
         var xhr = new XMLHttpRequest();
         xhr.open("post", "/user/logout", true);
         xhr.onload = function(e) {
-            location.replace("/");
+            location.reload();
         };
         xhr.send(data);
     }
-
-
 
 </script>

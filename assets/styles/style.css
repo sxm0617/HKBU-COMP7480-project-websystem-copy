@@ -209,6 +209,13 @@ input[type="text"],input[type="password"] {
 	font-size: 25px;
 }
 
+.info select{
+	text-align: left;
+	font-size: 25px;
+	vertical-align: middle;
+	margin: 5px;
+}
+
 .top {
 	padding-left: 40px;
 	vertical-align: top;
@@ -225,4 +232,15 @@ input[type="text"],input[type="password"] {
 	height: 400px;
 	width: 600px;
 	border-radius: 10px;
+}
+
+.edit input, select {
+	height: 45px;
+	width: 80%;
+	font-size: 18px;
+	background-color: #fff;
+	border-radius: 4px;
+	vertical-align: middle;
+	padding: 5px;
+	margin: 5px auto;
 }

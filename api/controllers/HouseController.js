@@ -24,8 +24,8 @@ module.exports = {
 							if (pages == 0) {
 								pages = 1;
 							} 
-							return res.view('search', {'house': houses, 'count': pages, 'current': req.query.page});
-					})				 					
+							return res.view('search', {'house': houses, 'count': pages, 'current': req.query.page});							
+					});				 					
 				});			 					
 		}
 	},
@@ -66,7 +66,7 @@ module.exports = {
 	view: function(req, res) {
 		House.findOne({id: req.params.id})
 			.exec(function(err, house) {
-				return res.view('view', {'house': house});
+				return res.view('view', {'house': house, 'userId': req.session.userId});
 			});
 	},
 
@@ -86,8 +86,100 @@ module.exports = {
 	},
 
 	edit: function(req, res) {
-		House.find({id: req.params.id}).exec(function(err, houses) {
-			return res.view('edit', {'house': houses});
+		House.findOne({id: req.params.id}).exec(function(err, house) {
+			return res.view('edit', {'house': house});
+		});
+	},
+
+	update: function(req, res) {
+		House.findOne({id: req.body.id}).exec(function(err, house) {
+			house.title = req.body.title;
+			house.image = req.body.image;
+			house.district = req.body.district;
+			house.bedroom = req.body.bedroom;
+			house.area = req.body.area;			
+			house.lift = req.body.lift;
+			house.guard = req.body.guard;
+			house.price = req.body.price;
+			house.save();
+			if (req.session.username == "admin") {
+				return res.redirect('house/admin');
+			} else {
+				return res.redirect('/user/own');
+			}
+		});
+	},
+
+	confirmAdd: function(req, res) {
+		House.create({title: req.body.title,
+			image: req.body.image,
+			district: req.body.district,
+			bedroom: req.body.bedroom,
+			area: req.body.area,		
+			lift: req.body.lift,
+			guard: req.body.guard,
+			price: req.body.price})
+			.exec(function(err, house) {
+				//return res.json(house);
+				console.log(req.session.userId);
+				house.ownedBy.add(req.session.userId);
+				house.save();
+				User.findOne(req.session.userId).populateAll().exec(function(err, user) {
+					return res.redirect('/user/own');
+				});
+				
+		});
+	},
+
+	add: function(req, res) {
+		return res.view('add');
+	},
+
+	interestedBy: function(req, res) {
+		House.findOne(req.params.id).exec(function(err, house) {
+			if (house != null) {
+				house.interestedBy.add(req.query.userId);
+				house.save(function(err, house) {
+					if (err) {
+						return res.send("Already declared");
+					} else {
+						return res.send("Successful");
+					}
+				});
+				
+			} else {
+				return res.send("House not found");
+			}
+		});
+	},
+
+	interest: function(req, res) {
+		House.findOne(req.params.id).populate("interestedBy").exec(function(err, house) {
+			return res.view('interestUsers', {'user': house.interestedBy});
+		});
+	},
+
+	interested: function(req, res) {
+		User.findOne(req.session.userId).populate('interest').exec(function(err, user) {
+			return res.view('interest', {'house': user.interest});
+		});
+	},
+
+	uninterest: function(req, res) {
+		House.findOne(req.params.id).exec(function(err, house) {
+			if (house != null) {
+				house.interestedBy.add(req.query.userId);
+				house.save(function(err, house) {
+					if (err) {
+						return res.send("Already declared");
+					} else {
+						return res.send("Successful");
+					}
+				});
+				
+			} else {
+				return res.send("House not found");
+			}
 		});
 	}
 

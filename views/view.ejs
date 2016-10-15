@@ -4,7 +4,13 @@
 <div class="col-md-offset-1 col-lg-offset-2 col-md-10 col-lg-8">
 	<div class="codrops-top">
         <button id="home" class="top-bar"><a href="/">Home</a></button>
-        <button id="search" class="top-bar" onclick="chkLogin()"><a href="/house/search">Search</a></button>
+        <button id="search" type="button" class="top-bar" onclick="chkLogin()">Search</button>
+
+        <button id="admin" type="button" class="top-bar"><a href="/house/admin">Admin</a></button>
+
+        <button id="userhouse" type="button" class="top-bar"><a href="/user/own">My House</a></button>
+        <button id="addhouse" type="button" class="top-bar"><a href="/house/add">Add New</a></button>
+        <button id="interest" type="button" class="top-bar"><a href="/house/interested">My Interest</a></button>
           
         <button id="login" class="top-bar-right"><a href="/user/login">Login</a></button>  
         <button id="logout" class="top-bar-right" onclick="logout()">Logout</button>   
@@ -30,7 +36,7 @@
 		                <p class="info">Lift: <%=house.lift%></p>
 		                <p class="info">Guard: <%=house.guard%></p>
 		                <p class="info">Price:<strong>$<%=house.price%>/month</strong></p>
-		                <button type="button" onclick="chkLogin()" >Declare interest</button>
+		                <button type="button"><a href="/house/interestedBy/<%=house.id%>?userId=<%=userId%>">Declare interest</a></button>
                		</td>
         		</tr>
         	</table>
@@ -40,19 +46,37 @@
 </div>
 
 <script type="text/javascript">
+
+
  
-      window.onload = function() {
+    window.onload = function() {
         if ("<%=req.session.username%>" == "undefined") {
-       		document.getElementById("user").setAttribute("style", "display:none");
-          	document.getElementById("logout").setAttribute("style", "display:none");
-          	document.getElementById("login").setAttribute("style", "display:inline");     
+            document.getElementById("admin").setAttribute("style", "display:none");
+            document.getElementById("userhouse").setAttribute("style", "display:none");
+            document.getElementById("addhouse").setAttribute("style", "display:none");
+            document.getElementById("interest").setAttribute("style", "display:none");            
+            document.getElementById("login").setAttribute("style", "display:inline");
+            document.getElementById("logout").setAttribute("style", "display:none");
+            document.getElementById("user").setAttribute("style", "display:none");
+                 
         } else {
-         	document.getElementById("user").innerHTML = "Hi, <%=req.session.username%>";
-         	document.getElementById("user").setAttribute("style", "display:inline");
-          	document.getElementById("logout").setAttribute("style", "display:inline");
-         	document.getElementById("login").setAttribute("style", "display:none");       
+            document.getElementById("user").innerHTML = "Hi, <%=req.session.username%>";
+            document.getElementById("login").setAttribute("style", "display:none");
+            document.getElementById("logout").setAttribute("style", "display:inline");
+            document.getElementById("user").setAttribute("style", "display:inline");          
+            if ("<%=req.session.username%>" == "admin") {
+                document.getElementById("admin").setAttribute("style", "display:inline");
+                document.getElementById("userhouse").setAttribute("style", "display:none");
+                document.getElementById("addhouse").setAttribute("style", "display:none");
+                document.getElementById("interest").setAttribute("style", "display:none"); 
+            }  else {
+                document.getElementById("admin").setAttribute("style", "display:none");
+                document.getElementById("userhouse").setAttribute("style", "display:inline");
+                document.getElementById("addhouse").setAttribute("style", "display:inline");
+                document.getElementById("interest").setAttribute("style", "display:inline"); 
+            }     
         }
-      }
+    }
 
       function chkLogin() {
       	var currentUser = "<%=req.session.username%>";
@@ -62,12 +86,12 @@
       		//document.getElementById("search").className="top-bar";
       	} else {
       		//document.getElementById("search").className="active";
-      	}
-      	var data = new FormData();
-        data.append("username", "<%=req.session.username%>");
-        var xhr = new XMLHttpRequest();
-        xhr.open("post", "/house/search", true);
-        xhr.send(data);
+        	var data = new FormData();
+          data.append("username", "<%=req.session.username%>");
+          var xhr = new XMLHttpRequest();
+          xhr.open("post", "/user/interest", true);
+          xhr.send(data);
+        }
       }
 
       function logout() {
