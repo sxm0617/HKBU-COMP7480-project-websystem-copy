@@ -48,7 +48,8 @@ module.exports.bootstrap = function(cb) {
         "bedroom": 2,
         "lift": "Yes",
         "guard": "Yes",
-        "price": 18000
+        "price": 20000,
+        "highlight": true
     };
     House.create(houseInfo).exec(function (err, house) {
         house.ownedBy.add(2);
@@ -64,7 +65,8 @@ module.exports.bootstrap = function(cb) {
         "bedroom": 2,
         "lift": "Yes",
         "guard": "No",
-        "price": 12000
+        "price": 10000,
+        "highlight": true
     };
     House.create(houseInfo).exec(function (err, house) {
         house.ownedBy.add(3);
@@ -80,7 +82,8 @@ module.exports.bootstrap = function(cb) {
         "bedroom": 3,
         "lift": "No",
         "guard": "Yes",
-        "price": 25000
+        "price": 28000,
+        "highlight": true
     };
     House.create(houseInfo).exec(function (err, house) {
         house.ownedBy.add(2);
@@ -96,7 +99,8 @@ module.exports.bootstrap = function(cb) {
         "bedroom": 4,
         "lift": "Yes",
         "guard": "No",
-        "price": 15000
+        "price": 15000,
+        "highlight": true
     };
     House.create(houseInfo).exec(function (err, house) {
         house.ownedBy.add(4);

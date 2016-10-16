@@ -26,10 +26,10 @@
     <div class="clearfix">
 	    <form action="/house/result" method="GET">
 	    	<h1>Set your search indexes</h1>
-	    	<table class="info">
+	    	<table class="info" width="100%">
 	    		<tr>
-	    			<td style="text-align: right;">District:</td>
-	    			<td>
+	    			<td style="text-align: right; width:20%">District:</td>
+	    			<td width="30%">
 	    				<select id="district" name="district">
 	    					<option value="">All</option>
 	    					<option value="Festival City">Festival City</option>
@@ -37,10 +37,8 @@
 	    					<option value="City One Shatin">City One Shatin</option>
 	    				</select>
 	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td style="text-align: right;">Bedrooms:</td>
-	    			<td>
+	    			<td style="text-align: right; width:20%">Bedrooms:</td>
+	    			<td width="30%">
 	    				<select id="bedroom" name="bedroom">
 	    					<option value="">All</option>
 	    					<option value="1">1</option>
@@ -48,8 +46,8 @@
 	    					<option value="3">3</option>
 	    					<option value="4">4</option>
 	    				</select>
-	    			</td>
-	    		</tr>
+	    			</td>	    			
+	    		</tr>    			
 	    		<tr>
 	    			<td style="text-align: right;">Lift:</td>
 	    			<td>
@@ -59,8 +57,6 @@
 	    					<option value="No">No</option>
 	    				</select>
 	    			</td>
-	    		</tr>
-	    		<tr>
 	    			<td style="text-align: right;">Guard:</td>
 	    			<td>
 	    				<select id="guard" name="guard">
@@ -68,20 +64,34 @@
 	    					<option value="Yes">Yes</option>
 	    					<option value="No">No</option>
 	    				</select>
-	    			</td>
+	    			</td>	    				    			
 	    		</tr>
 	    		<tr>
 	    			<td style="text-align:right;">Area(sq feet):</td>
-	    			<td><div id="areaSlider" name="area" style="width: 200%; margin: 60px 0 60px 40px;"></div></td>
+	    			<td colspan="2">
+	    				<input id="minArea" name="minArea" style="display: none">
+	    				<input id="maxArea" name="maxArea" style="display: none">
+	    				<div id="areaSlider" name="area" style="width: 100%; margin: 60px 0 60px 40px;"></div>
+	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td style="text-align:right;">Price(HK$/month):</td>
-	    			<td><div id="priceSlider" name="price" style="width: 200%; margin: 60px 0 60px 40px;"></div></td>
-	    		</tr>
+	    			<td colspan="2">
+	    				<input id="minPrice" name="minPrice" style="display: none">
+	    				<input id="maxPrice" name="maxPrice" style="display: none">
+	    				<div id="priceSlider" name="price" style="width: 100%; margin: 60px 0 60px 40px;"></div>
+	    			</td>
+	    			<tr>
+	    				<td width="20%"></td>
+	    				<td width="30%"></td>
+	    				<td width="20%"></td>
+	    				<td style="text-align: center"><button type="submit">Search</button></td>
+	    				
+	    			</tr>
 	    	</table>
-	    	<button type="submit">Search</button>
+	    	
 	    	<ul style="list-style: none;">
-			    <% house.forEach(function(house){
+			    <% houses.forEach(function(house){
 		        %>
 		        	<li class="list">
 		        		<table>
@@ -188,13 +198,11 @@
     		"max": [2000]
     	}
     });
-    // var snapValues = [
-    // 		document.getElementById("minArea"),
-    // 		document.getElementById("maxArea")
-    // 	];
-    // snapSlider.noUiSlider.on("update", function(values, handle) {
-    // 	snapValues[handle].innerHTML = values[handle];
-    // });
+
+    areaSlider.noUiSlider.on('update', function(values, handle) {
+    	document.getElementById("minArea").value = values[0];
+    	document.getElementById("maxArea").value = values[1];
+    });
 
     var priceSlider = document.getElementById("priceSlider");
     noUiSlider.create(priceSlider, {
@@ -207,6 +215,11 @@
     		"min": [0],
     		"max": [30000]
     	}
+    });
+
+    priceSlider.noUiSlider.on('update', function(values, handle) {
+    	document.getElementById("minPrice").value = parseInt(values[0]);
+    	document.getElementById("maxPrice").value = parseInt(values[1]);
     });
 
 </script>

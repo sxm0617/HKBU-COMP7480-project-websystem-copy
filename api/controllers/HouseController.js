@@ -13,18 +13,20 @@ module.exports = {
 				.where({bedroom: {contains: req.session.bedroom}})
 				.where({lift: {contains: req.session.lift}})
 				.where({guard: {contains: req.session.guard}})
+				.where({area: {'>=': req.session.minArea, '<=': req.session.maxArea}})
+				.where({price: {'>=': req.session.minPrice, '<=': req.session.maxPrice}})
 				.sort('id')
 				.paginate({page: req.query.page, limit: 2})	
 				.exec(function(err, houses) {
-					House.count({district: {contains: req.session.district}}, {bedroom: {contains: req.session.bedroom}},
-							{lift: {contains: req.session.lift}}, {guard: {contains: req.session.guard}})
+					House.count(houses)
 						.exec(function(err, value) {
 							var pages = Math.ceil(value / 2	);
 							console.log(value);
 							if (pages == 0) {
 								pages = 1;
 							} 
-							return res.view('search', {'house': houses, 'count': pages, 'current': req.query.page});							
+							//return res.json(houses);
+							return res.view('search', {'houses': houses, 'count': pages, 'current': req.query.page});							
 					});				 					
 				});			 					
 		}
@@ -37,28 +39,37 @@ module.exports = {
 			req.session.bedroom = req.query.bedroom;
 			req.session.lift = req.query.lift;
 			req.session.guard = req.query.guard;
+			req.session.minArea = req.query.minArea;
+			req.session.maxArea = req.query.maxArea;
+			req.session.minPrice = req.query.minPrice;
+			req.session.maxPrice = req.query.maxPrice;
 
 			House.find()	
 				.where({district: {contains: req.query.district}})
 				.where({bedroom: {contains: req.query.bedroom}})
 				.where({lift: {contains: req.query.lift}})
 				.where({guard: {contains: req.query.guard}})
+				.where({area: {'>=': req.query.minArea, '<=': req.query.maxArea}})
+				.where({price: {'>=': req.query.minPrice, '<=': req.query.maxPrice}})
 				.sort('id')
 				.paginate({page: req.query.page, limit: 2})	
 				.exec(function(err, houses) {
-					House.count({district: {contains: req.query.district}}, {bedroom: {contains: req.query.bedroom}},
-							{lift: {contains: req.query.lift}}, {guard: {contains: req.query.guard}})
+					House.count(houses)
 						.exec(function(err, value) {
 							console.log(value);
 							var pages = Math.ceil(value / 2	);
-							return res.view('search', {'house': houses, 'count': pages, 'current': req.query.page});
+							if (pages == 0) {
+								pages == 1;
+							}
+							//return res.json(houses);
+							return res.view('search', {'houses': houses, 'count': pages, 'current': req.query.page});
 					})				 					
 				});			
 		}
 	},
 
 	list: function(req, res) {
-		House.find().exec(function(err, houses) {
+		House.find({highlight: true}).exec(function(err, houses) {
 			return res.view('index', {'house': houses});
 		});
 	},
@@ -87,7 +98,7 @@ module.exports = {
 
 	edit: function(req, res) {
 		House.findOne({id: req.params.id}).exec(function(err, house) {
-			return res.view('edit', {'house': house});
+			return res.view('edit', {'house': house, 'user': req.session.username});
 		});
 	},
 
@@ -101,6 +112,8 @@ module.exports = {
 			house.lift = req.body.lift;
 			house.guard = req.body.guard;
 			house.price = req.body.price;
+			house.highlight = req.body.highlight;
+			console.log(req.body.highlight);
 			house.save();
 			if (req.session.username == "admin") {
 				return res.redirect('house/admin');
@@ -118,7 +131,8 @@ module.exports = {
 			area: req.body.area,		
 			lift: req.body.lift,
 			guard: req.body.guard,
-			price: req.body.price})
+			price: req.body.price,
+			highlight: false})
 			.exec(function(err, house) {
 				//return res.json(house);
 				console.log(req.session.userId);

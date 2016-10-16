@@ -16,7 +16,6 @@
         <button id="logout" class="top-bar-right" onclick="logout()">Logout</button>   
         <button id="user" class="top-bar-right-user"></button>
     </div>
-    </div>
     <br><br><br>
 
     <form action="/house/update" method="post">    
@@ -70,14 +69,21 @@
                 <td style="width: 20%; text-align: right; font-size: 20px">Price:</td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" name="price" min="0" max="30000" step="100" value="<%=house.price%>"></td>
             </tr>
-            <tr>
-                <td style="width: 20%; text-align: right; font-size: 20px">Highlighted:</td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            </tr>
+            <% if (user == "admin") {
+            %>
+                <tr>
+                    <td style="width: 20%; text-align: right; font-size: 20px">Highlighted:</td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="highlight" name="highlight" value="<%=house.highlight%>" style="display: none">
+                        <input type="checkbox" id="houseHighlight" name="houseHighlight" checked="<%=house.highlight%>">
+                    </td>
+                </tr>
+            <%
+            }
+            %>
         </table>
-        <button>Update</button>
-    </form>
-    
+        <button onclick="change()">Update</button>
+    </form>   
 </div>
 
 <script type="text/javascript">
@@ -136,6 +142,9 @@
         xhr.send(data);
     }
 
+    function change() {
+        document.getElementById("highlight").value = document.getElementById("houseHighlight").checked;
+    }
 
 
 </script>
