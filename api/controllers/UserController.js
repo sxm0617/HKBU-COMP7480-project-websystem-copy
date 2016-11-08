@@ -61,6 +61,12 @@ module.exports = {
 			user.save();
 			return res.json(user);
 		});
+	},
+
+	interestedHouse: function(req, res) {
+		User.findOne({username: req.session.username}).populateAll().exec(function(err, user) {
+			return res.json(user.interest);
+		});
 	}
 
 };

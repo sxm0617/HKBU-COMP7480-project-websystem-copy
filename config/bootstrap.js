@@ -59,7 +59,7 @@ module.exports.bootstrap = function(cb) {
     houseInfo = {
         "id": 2,
         "title": "2房實用，交通方便",
-        "district": "Tin Ma Court",
+        "district": "City Garden",
         "image": "http://static.apple.nextmedia.com/images/apple-photos/640pix/20030903/Article_fin/03bc351p.jpg",
         "area": 550,
         "bedroom": 2,
@@ -76,14 +76,14 @@ module.exports.bootstrap = function(cb) {
     houseInfo = {
         "id": 3,
         "title": "沙田第一城 套3房剛翻新",
-        "district": "City One Shatin",
+        "district": "City One",
         "image": "http://ps.hket.com/res/images/contents/2014/201411/20141121/479078/yyyy1118077_08_600x400_w.jpg",
         "area": 900,
         "bedroom": 3,
         "lift": "No",
         "guard": "Yes",
         "price": 28000,
-        "highlight": true
+        "highlight": false
     };
     House.create(houseInfo).exec(function (err, house) {
         house.ownedBy.add(2);
