@@ -19,7 +19,6 @@ module.exports = {
 						return res.send("Wrong password");
 					}
 					req.session.username = req.body.username;
-					console.log(user.id);
 					req.session.userId = user.id;
 					return res.redirect('/');
 				});

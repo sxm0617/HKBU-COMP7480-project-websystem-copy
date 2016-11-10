@@ -180,9 +180,9 @@ module.exports = {
 	},
 
 	uninterest: function(req, res) {
-		House.findOne(req.params.id).exec(function(err, house) {
+		House.findOne(req.params.id).populateAll().exec(function(err, house) {
 			if (house != null) {
-				house.interestedBy.add(req.query.userId);
+				house.interestedBy.remove(req.session.userId);
 				house.save(function(err, house) {
 					if (err) {
 						return res.send("Already declared");

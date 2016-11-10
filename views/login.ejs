@@ -26,6 +26,7 @@
 
 <script type="text/javascript">
 	function compare() {
+		console.log(document.getElementById("userName").value);
 		var data = new FormData();
         data.append("username", document.getElementById("userName").value); 
         data.append("password", document.getElementById("userPassword").value);
