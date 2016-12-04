@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
 <link rel="stylesheet" href="/styles/style.css">
+<link rel='stylesheet prefetch' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.css'>
 
 <div class="col-md-offset-1 col-lg-offset-2 col-md-10 col-lg-8">
 	  <div class="codrops-top">
@@ -31,7 +32,7 @@
         					<img src="<%=house.image%>">
         				</td>
         				<td class="top">
-			                <h1 class="title"><a href="/house/view/<%=house.id%>"><%=house.title%></a></h1>   
+			                <h1 class="title"><a href="/house/view/<%=house.id%>" onclick="chkLogin()"><%=house.title%></a></h1>   
 			                <p class="info">District: <%=house.district%></p>
 			                <p class="info">Area: <%=house.area%> sq feet</p>
 			                <p class="info">Price:<strong>$<%=house.price%>/month</strong></p>
@@ -86,12 +87,10 @@
       	if (currentUser == "undefined") {
       		alert("Please login first");
           location.replace("/user/login");
-      		//document.getElementById("search").className="top-bar";
       	} else {
           var xhr = new XMLHttpRequest();
           xhr.open("post", "/house/search", true);
           location.replace("/house/search");
-      		//document.getElementById("search").className="active";
       	}
     }
 

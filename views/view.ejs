@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
 <link rel="stylesheet" href="/styles/style.css">
+<link rel='stylesheet prefetch' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.css'>
 
 <div class="col-md-offset-1 col-lg-offset-2 col-md-10 col-lg-8">
 	<div class="codrops-top">
@@ -36,7 +37,7 @@
 		                <p class="info">Lift: <%=house.lift%></p>
 		                <p class="info">Guard: <%=house.guard%></p>
 		                <p class="info">Price:<strong>$<%=house.price%>/month</strong></p>
-		                <button type="button"><a href="/house/interestedBy/<%=house.id%>?userId=<%=userId%>">Declare interest</a></button>
+		                <button type="button" onclick="declare(<%=house.id%>, <%=userId%>)">Declare interest</button>
                		</td>
         		</tr>
         	</table>
@@ -83,9 +84,7 @@
       	if (currentUser == "undefined") {
       		alert("Please login first");
       		location.replace("/user/login");
-      		//document.getElementById("search").className="top-bar";
       	} else {
-      		//document.getElementById("search").className="active";
         	var data = new FormData();
           data.append("username", "<%=req.session.username%>");
           var xhr = new XMLHttpRequest();
@@ -101,6 +100,22 @@
         xhr.open("post", "/user/logout", true);
         xhr.onload = function(e) {
             location.reload();
+        };
+        xhr.send(data);
+      }
+
+      function declare(houseId, userId) {
+        var data = new FormData();
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "/house/interestedBy/" + houseId + "?userId=" + userId, true);
+        xhr.onload = function(e) {
+          if (this.responseText == "Declare successful!") {
+              alert(this.responseText);
+              location.replace("/house/interested");
+          } else {
+              alert(this.responseText);
+              location.reload();  
+          }                        
         };
         xhr.send(data);
       }

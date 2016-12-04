@@ -134,7 +134,6 @@ module.exports = {
 			price: req.body.price,
 			highlight: false})
 			.exec(function(err, house) {
-				//return res.json(house);
 				console.log(req.session.userId);
 				house.ownedBy.add(req.session.userId);
 				house.save();
@@ -155,14 +154,14 @@ module.exports = {
 				house.interestedBy.add(req.query.userId);
 				house.save(function(err, house) {
 					if (err) {
-						return res.send("Already declared");
+						return res.send("Already declared!");
 					} else {
-						return res.send("Successful");
+						return res.send("Declare successful!");
 					}
 				});
 				
 			} else {
-				return res.send("House not found");
+				return res.send("House not found!");
 			}
 		});
 	},
@@ -185,14 +184,14 @@ module.exports = {
 				house.interestedBy.remove(req.session.userId);
 				house.save(function(err, house) {
 					if (err) {
-						return res.send("Already declared");
+						return res.send("Already undeclared!");
 					} else {
-						return res.send("Successful");
+						return res.send("House Uninterested!");
 					}
 				});
 				
 			} else {
-				return res.send("House not found");
+				return res.send("House not found!");
 			}
 		});
 	}

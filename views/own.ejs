@@ -1,6 +1,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
 <link rel="stylesheet" href="/styles/style.css" />
 <link rel="stylesheet" href="/styles/nouislider.min.css" />
+<link rel='stylesheet prefetch' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.css'>
+
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js'></script>
+<script src='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.js'></script>
+
 
 <div class="col-md-offset-1 col-lg-offset-2 col-md-10 col-lg-8">
 	<div class="codrops-top">
@@ -17,24 +24,45 @@
     </div>
     <br><br><br>
 	
-	<table width="100%" class="clearfix">
-        <% house.forEach(function(house){
-        %>
-        <tr style="border-top:1px solid #000000; font-size: 20px;" >
-            <td><%=house.title%></td>
-            <td><%=house.district%></td>
-            <td><a href="/house/interest/<%=house.id%>">Interest User</a></td>
-            <td><a href="/house/edit/<%=house.id%>" onclick="editHouse('<%=house.id%>')">Edit</a></td>
-            <td><button type="button" onclick="deleteHouse('<%=house.id%>')">Delete</button></td>
-        </tr>
-        <%
-        });
-        %>
-    </table>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <table width="100%" class="clearfix">
+            <% house.forEach(function(house){
+            %>
+            <tr style="border-top:1px solid #000000; font-size: 20px;" >
+                <td style="width: 30%;"><%=house.title%></td>
+                <td style="width: 25%; text-align: center;"><%=house.district%></td>
+                <td style="width: 20%; text-align: center;"><a href="/house/interest/<%=house.id%>" style="text-decoration: none;">Interest User</a></td>
+                <td style="width: 10%; text-align: center;"><a href="/house/edit/<%=house.id%>" style="text-decoration: none;" onclick="editHouse('<%=house.id%>')">Edit</a></td>
+                <td style="width: 10%; text-align: right;"><a href="" style="text-decoration: none;" ng-click="showConfirm(<%=house.id%>)">Delete</a></td>
+            </tr>
+            <%
+            });
+            %>
+        </table>
+
+    </div>
     
 </div>
 
-<script type="text/javascript">
+<script>
+    var app = angular.module('myApp', ['ngMaterial']);
+    app.controller('myCtrl', function($scope, $mdDialog) {
+        $scope.showConfirm = function(id) {
+        
+            var confirm = $mdDialog.confirm()
+            .title('Do you want to delete the house?')
+            .ok('Yes')
+            .cancel('No');
+
+            $mdDialog.show(confirm).then(function() {
+                alert("House Deleted!");
+                deleteHouse(id);               
+            }, function() {
+                alert("Operation Canceled!");
+            });
+
+        };
+    });
 
     window.onload = function() {
         if ("<%=req.session.username%>" == "undefined") {
@@ -61,12 +89,10 @@
         if (currentUser == "undefined") {
             alert("Please login first");
           location.replace("/user/login");
-            //document.getElementById("search").className="top-bar";
         } else {
           var xhr = new XMLHttpRequest();
           xhr.open("post", "/house/search", true);
           location.replace("/house/search");
-            //document.getElementById("search").className="active";
         }
     }
 

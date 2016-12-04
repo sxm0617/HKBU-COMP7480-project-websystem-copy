@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" href="/styles/style.css" />
 <link rel="stylesheet" type="text/css" href="/styles/font-awesome.css" />
+<link rel='stylesheet prefetch' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.css'>
 
 <div class="col-md-offset-1 col-lg-offset-2 col-md-10 col-lg-8">
 	<div class="codrops-top">
@@ -13,7 +14,7 @@
 		<img src="/images/house.jpg" />
 		<form action="" method="">
 			<div class="form-input">
-				<input type="text" id="userName" placeholder="Account" required /><br>
+				<input type="text" id="userName" placeholder="Account" required /><label style="position:absolute" id="inputUsername" class="wrongpassword" value=""></label><br>
 			</div>	
 			<div class="form-input">
 				<input type="password" id="userPassword" placeholder="Password" required /><label style="position:absolute" name="inputPassword" class="wrongpassword" value=""></label><br>
@@ -21,7 +22,7 @@
 			<div class="form-input">
 				<input type="password" id="reUserPassword" placeholder="Password Again" required /><label style="position:absolute" name="inputPassword" class="wrongpassword" value=""></label><br>
 			</div>
-			<button type="button" id="register" class="btn-login" onclick="testPassword()">Register</button><br>
+			<button type="button" id="register" class="btn-login" onclick="testValidate()">Register</button><br>
 			<p>Already have an account? <a href="/user/login">Log in </a>here</p>
 		</form>
 	</div>
@@ -29,15 +30,25 @@
 
 
 <script type="text/javascript">
-	function testPassword() {
+	function testValidate() {
 		
+		var userName = document.getElementById("userName").value;
 		var password = document.getElementById("userPassword").value;
 		var repassword = document.getElementById("reUserPassword").value;
-		if (password != repassword) {
+
+		if (userName.length < 6 || userName.length > 18 || userName == "") {
+			var label = document.getElementById("inputUsername");
+			label.innerHTML = "&nbsp;&nbsp;Length should be from 6 to 18";
+		} else if (password != repassword) {
 			var label = document.getElementsByName("inputPassword");
 			for (var i = 0; i < label.length; i++) {
-				label[i].innerHTML = "Two passwords do not agree";	
+				label[i].innerHTML = "&nbsp;&nbsp;Two passwords do not agree";	
 			}			
+		} else if (password.length < 6 || password.length > 18 || password == "") {
+			var label = document.getElementsByName("inputPassword");
+			for (var i = 0; i < label.length; i++) {
+				label[i].innerHTML = "&nbsp;&nbsp;Length should be from 6 to 18";	
+			}
 		} else {
 			var data = new FormData();
 			data.append("username", document.getElementById("userName").value);
